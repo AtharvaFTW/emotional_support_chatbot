@@ -6,7 +6,7 @@ The Emotional Support Chatbot is a web-based application designed to provide emp
 Empathetic Conversations
 Using the OpenAI API, the chatbot generates responses that aim to be both understanding and supportive, helping users feel heard and validated during their moments of need.
 
- User Authentication
+ **User Authentication**
 The system includes a secure login and registration process to ensure user privacy and data security. Passwords are hashed using werkzeug.security to protect user information.
 
  Personalized Support
