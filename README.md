@@ -23,7 +23,11 @@ While currently in development, the chatbot aims to support multiple languages, 
 
 # Technologies Used
 **Frontend:** HTML, CSS, JavaScript
+
 **Backend:** Flask (Python)
+
 **Database:** SQLite
+
 **API:** OpenAI API for NLP
+
 **Security:** Password hashing with werkzeug.security
