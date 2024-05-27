@@ -1,5 +1,4 @@
 # **EMOTIONAL SUPPORT CHATBOT**
-# Project Description
 The Emotional Support Chatbot is a web-based application designed to provide empathetic responses, guidance, and valuable resources to individuals experiencing emotional distress. This chatbot leverages advanced Natural Language Processing (NLP) techniques and the powerful OpenAI API to simulate human-like conversations and offer emotional support to users in need.
 
 # Features
