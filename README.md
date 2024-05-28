@@ -72,15 +72,15 @@ pip install -r requirements.txt
 
 Follow these steps to obtain your API key from OpenAI:
 
-Sign Up for an Account:Go to the OpenAI website and sign up for an account.
+Sign Up for an Account: Go to the OpenAI website and sign up for an account.
 
-Select an API Plan:Choose the appropriate API plan based on your usage requirements.
+Select an API Plan: Choose the appropriate API plan based on your usage requirements.
 
-Generate Your API Key:After signing up and selecting a plan, navigate to your account settings or dashboard to generate your API key.
+Generate Your API Key: After signing up and selecting a plan, navigate to your account settings or dashboard to generate your API key.
 
-Copy Your API Key:Once your API key is generated, copy it to your clipboard.
+Copy Your API Key: Once your API key is generated, copy it to your clipboard.
 
-Use Your API Key:You can now use your API key for this chatbot. Apply your key in app.py file.
+Use Your API Key: You can now use your API key for this chatbot. Apply your key in app.py file.
 
 
 **5.Usage**
