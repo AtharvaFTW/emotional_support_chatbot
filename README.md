@@ -32,12 +32,15 @@ While currently in development, the chatbot aims to support multiple languages, 
 **Security:** Password hashing with werkzeug.security
 
 # How to use?
+
 **1.Installation**
 
 Clone or download the repository to your local machine:
  ```bash
  git clone https://github.com/AtharvaFTW/emotional_support_chatbot.git
 ```
+
+
 **2.Setup**
 
 Navigate to the project directory:
@@ -62,12 +65,15 @@ On macOS and Linux:
 source venv/bin/activate
 ```
 
+
 **3.Install Dependancies**
 
 Install required Python packages:
 ```bash
 pip install -r requirements.txt
 ```
+
+
 **4.Obtaining your Api key**
 
 Follow these steps to obtain your API key from OpenAI:
@@ -91,15 +97,18 @@ python app.py
 ```
 Access the application through your web browser at http://localhost:5000.
 
+
 **6.Functionality**
 
 The Emotional Support Chatbot provides empathetic responses and guidance to individuals in emotional distress.
 
 Enter your messages in the chat interface, and the chatbot will respond accordingly.
 
+
 **7.Customization**
 
 Customize the chatbot's behavior or responses by modifying the source code.
+
 
 **8.Screenshots**
 
