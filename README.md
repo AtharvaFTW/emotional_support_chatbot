@@ -89,8 +89,27 @@ Customize the chatbot's behavior or responses by modifying the source code.
 
 **7.Screenshots**
 
+Home:
+![Homepage](screenshots/Homepage.png)
 
-**8.Creditis**
+Register:
+![Alt text](screenshots/Register.png)
+
+Login:
+![Alt text](screenshots/Loginpage.png)
+
+UI:
+![Alt text](screenshots/UI.png)
+
+Multi Language Support:
+![Alt text](screenshots/UI_eng.png)
+![Alt text](screenshots/UI_Hindi.png)
+![Alt text](screenshots/UI_Japanese.png)
+
+Feedback:
+![Alt text](screenshots/Feedbackpage.png)
+
+**8.Credits**
 
 This project was developed by AtharvaFTW. Special thanks to OpenAi for api.
 
