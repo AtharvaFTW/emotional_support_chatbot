@@ -109,7 +109,7 @@ def create_request_builder(
         raise ValueError("``key`` must be ``None`` or a string")
 
     if key is None:
-        key = "AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw"
+        key = ""
     return RequestBuilder(
         key=key, language=language, filter_level=filter_level
     )
