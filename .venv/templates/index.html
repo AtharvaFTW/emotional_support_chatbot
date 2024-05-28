@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotional Support Chatbot</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh; /* Ensure full viewport height */
+            overflow: hidden; /* Prevent page zooming */
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            position: relative;
+            height: 98vh; /* Adjust container height */
+            display: flex;
+            flex-direction: column; /* Stack elements vertically */
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .chatbox-container {
+            position: relative;
+            z-index: 2; /* Set z-index to place it above wallpaper */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Hide overflow from the background image */
+            background-image: url('{{ url_for('static', filename='default.jpg') }}');
+            background-size: cover;
+            flex: 1; /* Grow to fill available space */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+        #chatbox {
+            padding: 10px;
+            background-color: transparent; /* Set chatbox background to transparent */
+        }
+        .message {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Align messages to the left */
+        }
+        .user, .bot {
+            position: relative;
+            z-index: 3; /* Ensure it's above the wallpaper */
+        }
+        .user span, .bot span {
+            background-color: rgba(255, 255, 255, 0.7); /* Set background color with opacity */
+            border-radius: 5px;
+            padding: 10px;
+            max-width: 80%;
+            word-wrap: break-word; /* Wrap long messages */
+        }
+        .user span {
+            color: #333;
+            text-align: right;
+        }
+        .bot span {
+            color: #333;
+            text-align: left; /* Align bot messages to the left */
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        #userInput {
+            width: 97.8%;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: auto; /* Align to bottom of container */
+            display: flex;
+            align-items: center;
+        }
+        #textInput {
+            flex: 1; /* Take remaining space */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        #textInput:focus {
+            outline: none;
+            border-color: #80b3ff;
+        }
+        #wallpaperPickerContainer {
+            text-align: center;
+            margin-bottom: 20px;
+            z-index: 1; /* Ensure it's behind chatbox */
+        }
+        #wallpaperPicker {
+            padding: 5px;
+            border-radius: 5px;
+        }
+        #logoutButton {
+    background-color: #ff3333; /* Red */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    cursor: pointer;
+}
+
+        #logoutButton:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> Emotional Support Chatbot </h1>
+        <!-- Wallpaper picker -->
+        <div id="wallpaperPickerContainer">
+            <label for="wallpaperPicker">Choose Your Wallpaper:</label>
+            <select id="wallpaperPicker">
+                <option value="{{ url_for('static', filename='default.jpg') }}">Default</option>
+                <option value="{{ url_for('static', filename='wallpaper.jpg') }}">Tower</option>
+                <option value="{{ url_for('static', filename='wallpaper2.jpg') }}">Sky</option>
+                <option value="{{ url_for('static', filename='wallpaper3.jpg') }}">Pink</option>
+                <option value="{{ url_for('static', filename='wallpaper4.jpg') }}">Night</option>
+                <option value="{{ url_for('static', filename='wallpaper5.jpg') }}">Dawn</option>
+                <option value="{{ url_for('static', filename='wallpaper6.jpg') }}">Mountain</option>
+                <option value="{{ url_for('static', filename='wallpaper7.jpg') }}">Car</option>
+            </select>
+        </div>
+        <div class="chatbox-container" id="chatboxContainer">
+            <div id="chatbox"></div>
+        </div>
+        <div id="userInput">
+            <!-- Add bot logo -->
+            <input id="textInput" type="text" name="msg" placeholder="Enter message here...">
+            <button id="logoutButton">Logout</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            // Wallpaper picker change event
+            $("#wallpaperPicker").change(function() {
+                var selectedWallpaper = $(this).val();
+                applyWallpaper(selectedWallpaper);
+            });
+
+            // Scroll chatbox to bottom on page load
+            $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
+
+            // Bind logout function to click event of logout button
+            $("#logoutButton").click(function() {
+                logout();
+            });
+        });
+
+        function applyWallpaper(wallpaper) {
+            $("#chatboxContainer").css("background-image", "url(" + wallpaper + ")");
+        }
+
+        function getBotResponse() {
+            var rawText = $("#textInput").val();
+            var userHtml = '<div class="message user">' +
+                  '<img src="{{ url_for('static', filename='this_is_normal_pfp_by_henrylitstickmin_dfpo2gx-fullview.jpg') }}" alt="User Avatar" class="avatar">' +
+                  '<span>' + rawText + "</span>" +
+              '</div>';
+
+            $("#textInput").val("");
+            $("#chatbox").append(userHtml);
+            $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
+            $.post("/chat", { user_input: rawText }).done(function(data) {
+                var botHtml = '<div class="message bot">' +
+                                  '<img src="{{ url_for('static', filename='1_XYkeLDKoP3nvw-4ou_qznA.jpg') }}" alt="Bot Avatar" class="avatar">' +
+                                  '<span>' + data.bot_response + "</span>" +
+                              '</div>';
+                $("#chatbox").append(botHtml);
+                $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
+            });
+        }
+
+        function logout() {
+            // Perform logout actions here
+            // For example:
+            // Clear session data
+            sessionStorage.clear();
+            // Redirect to feedback page or other desired page
+            window.location.href = 'http://127.0.0.1:3000'; // Replace '/feedback' with the actual URL of the feedback page
+        }
+
+        $("#textInput").keypress(function(e) {
+            if (e.which == 13) {
+                getBotResponse();
+            }
+        });
+    </script>
+</body>
+</html>

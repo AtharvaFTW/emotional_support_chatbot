@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .feedbackmsg {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: green;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .stars {
+            margin-bottom: 10px;
+            direction: rtl;
+            text-align: left; /* Set direction to right-to-left */
+        }
+        .stars input[type="radio"] {
+            display: none;
+        }
+        .stars label {
+            display: inline-block;
+            cursor: pointer;
+            font-size: 30px;
+            direction: ltr; /* Set direction to left-to-right */
+            color: #ddd;
+        }
+        .stars label:before {
+            content: '\2605';
+            margin-right: 5px;
+        }
+        .stars input[type="radio"]:checked ~ label:before {
+            color: gold;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .message {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logout-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thank you for using our chatbot!</h1>
+        <div class="feedbackmsg">Please provide your valuable feedback if you can :)</div>
+        <form id="feedbackForm">
+            <div class="form-group">
+                <label for="rating">Rating:</label>
+                <div class="stars">
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5"></label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="comments">Comments:</label>
+                <textarea id="comments" name="comments" placeholder="Write your Suggestions/Comments here..."></textarea>
+            </div>
+            <button type="submit">Submit Feedback</button>
+        </form>
+    </div>
+    <div class="logout-message">
+        <p>Didn't mean to logout? <a href="http://127.0.0.1:1000/login">Let's get you back in!</a></p>
+    </div>
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="feedbackModalLabel">Feedback Submitted</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Thank you for your feedback. Your feedback has been submitted successfully.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <script>
+    $(document).ready(function() {
+        $("#feedbackForm").submit(function(e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            $.post("/submit-feedback", formData, function(response) {
+                $('#feedbackModal').modal('show'); // Show the modal dialog box
+
+                // Clear selected rating
+                $('input[type="radio"]').prop('checked', false);
+
+                // Clear comments textarea
+                $('#comments').val('');
+            }, 'json');
+        });
+    });
+
+    // Disable the back button using JavaScript
+    history.pushState(null, null, location.href);
+    window.onpopstate = function(event) {
+        history.go(1);
+    };
+</script>
+</body>
+</html>

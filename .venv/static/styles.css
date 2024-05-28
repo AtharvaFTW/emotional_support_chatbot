@@ -1,0 +1,13 @@
+/* styles.css */
+
+.bot-message {
+    display: flex;
+    align-items: flex-start;
+}
+
+.bot-logo {
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    border-radius: 50%; /* Makes the image circular */
+    margin-right: 10px; /* Adjust spacing */
+}
