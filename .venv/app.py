@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
-from openai import OpenAI
+import openai
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Set a secret key for session management
-client = OpenAI(api_key="")# Add your secret Api key from OpenAi between ""
+openai.api_key = ""  # Add your secret Api key from OpenAI between ""
 app.static_folder = 'static'
 # Define the name for the chatbot
 chatbot_name = "Emotional Chatbot"
@@ -23,19 +23,22 @@ def chat():
 
         try:
             # Generating a more empathetic response
-            response = client.completions.create(
-                model="gpt-3.5-turbo-instruct",
+            response = openai.Completion.create(
+                engine="gpt-3.5-turbo-instruct",
                 prompt=prompt,
                 temperature=1,  # You can tweak the temperature for desired randomness
                 max_tokens=256
             )
 
-            bot_response = response.choices[0].text.strip()
+            bot_response = response['choices'][0]['text'].strip()
 
             # Replace the phrase with the desired message
             bot_response = bot_response.replace("I am trained by OpenAI", "I am created using API keys for a personal project")
+        except openai.OpenAIError as e:
+            # Handle OpenAI API errors gracefully
+            bot_response = f"Error: {str(e)}"
         except Exception as e:
-            # Handle exceptions gracefully
+            # Handle other exceptions gracefully
             bot_response = "Oops! Something went wrong. Please try again later."
     else:
         # If user_input is empty, return an empty response
